@@ -1,0 +1,21 @@
+services:
+    gateway.php:
+        build: docker/php
+        container_name: gateway.php
+        environment:
+            XDEBUG_MODE: develop,debug,coverage
+            XDEBUG_CONFIG: client_host=192.168.0.114
+            PHP_IDE_CONFIG: serverName=api.gateway.local
+        working_dir: /var/www/gateway
+        volumes:
+            - .:/var/www/gateway:rw
+    gateway.nginx:
+        image: nginx:alpine-slim
+        container_name: gateway.nginx
+        volumes:
+            - .:/var/www/gateway:rw
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - '8080:80'
+        links:
+            - gateway.php

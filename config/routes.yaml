@@ -1,0 +1,9 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: Gateway\Controller
+    type: attribute
+    prefix: '/api'
+
+api_login_check:
+    path: /api/login
