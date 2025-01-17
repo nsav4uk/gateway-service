@@ -10,11 +10,17 @@ use Symfony\Component\Messenger\Attribute\AsMessage;
 readonly class CreateUserMessage
 {
     public function __construct(
-        private string $content,
+        private string $email,
+        private string $password,
     ) {}
 
-    public function getContent(): string
+    public function getEmail(): string
     {
-        return $this->content;
+        return $this->email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
     }
 }

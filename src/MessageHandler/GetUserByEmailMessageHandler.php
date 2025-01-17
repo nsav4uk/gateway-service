@@ -17,7 +17,7 @@ readonly class GetUserByEmailMessageHandler
 
     public function __invoke(GetUserByEmailMessage $message)
     {
-        $data = $this->client->request('GET', 'http://user.nginx/user/' . $message->getEmail());
+        $data = $this->client->request('GET', 'http://user.nginx/' . $message->getEmail());
 
         return $data->toArray();
     }

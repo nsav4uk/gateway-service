@@ -17,6 +17,6 @@ class SignUpController extends AbstractController
         Request $request,
         UserService $userService,
     ): Response {
-        return $this->json($userService->createUser($request->getContent()));
+        return $this->json($userService->createUser($request->toArray()));
     }
 }

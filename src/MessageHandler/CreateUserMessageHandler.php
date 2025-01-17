@@ -17,7 +17,10 @@ readonly class CreateUserMessageHandler
 
     public function __invoke(CreateUserMessage $message): array
     {
-        $data = $this->client->request('POST', 'http://user.nginx/', ['body' => $message->getContent()]);
+        $data = $this->client->request('POST', 'http://user.nginx/', ['json' => [
+            'email' => $message->getEmail(),
+            'password' => $message->getPassword(),
+        ]]);
 
         return $data->toArray();
     }
