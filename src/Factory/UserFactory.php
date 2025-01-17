@@ -10,6 +10,10 @@ class UserFactory implements FactoryInterface
 {
     public function create(array $data): object
     {
-        return new User($data['id'], $data['email'], $data['password']);
+        return new User(
+            $data['id'] ?? null,
+            $data['email'],
+            $data['password'],
+        );
     }
 }

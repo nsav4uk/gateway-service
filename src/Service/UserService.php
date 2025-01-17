@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserService
@@ -19,12 +20,17 @@ class UserService
 
     public function __construct(
         private MessageBusInterface $messageBus,
-        private UserFactory $userFactory
+        private UserFactory $userFactory,
+        private UserPasswordHasherInterface $passwordHasher
     ) {}
 
-    public function createUser(string $content): array
+    public function createUser(array $data): array
     {
-        return $this->handle(new CreateUserMessage($content));
+        $user = $this->userFactory->create($data);
+
+        $password = $this->passwordHasher->hashPassword($user, $data['password']);
+
+        return $this->handle(new CreateUserMessage($data['email'], $password));
     }
 
     public function getUserByEmail(string $email): UserInterface
