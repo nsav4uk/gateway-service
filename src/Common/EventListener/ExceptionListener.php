@@ -1,0 +1,24 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Gateway\Common\EventListener;
+
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+
+#[AsEventListener('kernel.exception')]
+class ExceptionListener
+{
+    public function onKernelException(ExceptionEvent $event): void
+    {
+        $exception = $event->getThrowable();
+
+        $response = new JsonResponse([
+            'error' => $exception->getMessage(),
+        ]);
+
+        $event->setResponse($response);
+    }
+}

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Gateway\Entity;
+namespace Gateway\UserService\Entity;
 
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -13,6 +13,7 @@ readonly class User implements UserInterface, PasswordAuthenticatedUserInterface
         private ?int $id,
         private string $email,
         private string $password,
+        private array $roles,
     ) {}
 
     public function getId(): ?int
@@ -27,7 +28,7 @@ readonly class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        return ['ROLE_USER'];
+        return $this->roles;
     }
 
     public function eraseCredentials(): void
