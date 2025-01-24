@@ -1,6 +1,6 @@
 <?php
 
-namespace Gateway\Factory;
+namespace Gateway\UserService\Factory;
 
 interface FactoryInterface
 {

@@ -1,7 +1,7 @@
-controllers:
+user_service:
     resource:
-        path: ../src/Controller/
-        namespace: Gateway\Controller
+        path: ../src/UserService/Controller/
+        namespace: Gateway\UserService\Controller
     type: attribute
     prefix: '/api'
 
